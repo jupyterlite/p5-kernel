@@ -33,7 +33,7 @@ data_files_spec = [
 long_description = (HERE / "README.md").read_text()
 
 # Get the package info from package.json
-pkg_json = json.loads(src_path / "package.json").read_bytes()
+pkg_json = json.loads(str(src_path / "package.json")).read_bytes()
 
 setup_args = dict(
     name=NAME,
