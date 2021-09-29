@@ -52,7 +52,7 @@
   },
   "dependencies": {
     "@jupyterlite/kernel": "^0.1.0-alpha.9",
-    "@jupyterlite/p5-kernel": "^0.1.0",
+    "@jupyterlite/p5-kernel": "^0.1.0-alpha.9",
     "@jupyterlite/server": "^0.1.0-alpha.9"
   },
   "devDependencies": {

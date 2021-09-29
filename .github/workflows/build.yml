@@ -49,7 +49,7 @@ jobs:
     - name: Build the extension
       run: |
         set -eux
-        jlpm
+        jlpm install
         jlpm run eslint:check
         python -m pip install .
 
