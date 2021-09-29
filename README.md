@@ -6,15 +6,19 @@ A p5.js kernel for JupyterLite
 
 ## Requirements
 
-TODO
+- [JupyterLite](https://github.com/jupyterlite/jupyterlite/) 0.1.0a10+
 
 ## Install
 
-TODO
+```bash
+pip install p5-kernel-lite
+```
 
 ## Uninstall
 
-TODO
+```bash
+pip uninstall p5-kernel-lite
+```
 
 ## Contributing
 
