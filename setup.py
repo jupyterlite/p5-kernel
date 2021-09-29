@@ -23,11 +23,11 @@ labext_name = "@jupyterlite/p5-kernel"
 
 data_files_spec = [
     (
-        "share/jupyter/liteextensions/%s" % labext_name,
+        "share/jupyter/labextensions/%s" % labext_name,
         str(lite_path.relative_to(HERE)),
         "**",
     ),
-    ("share/jupyter/liteextensions/%s" % labext_name, str("."), "install.json"),
+    ("share/jupyter/labextensions/%s" % labext_name, str("."), "install.json"),
 ]
 
 long_description = (HERE / "README.md").read_text()

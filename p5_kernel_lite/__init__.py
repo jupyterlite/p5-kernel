@@ -8,8 +8,6 @@ HERE = Path(__file__).parent.resolve()
 with (HERE / "liteextension" / "package.json").open() as fid:
     data = json.load(fid)
 
+
 def _jupyter_labextension_paths():
-    return [{
-        "src": "liteextension",
-        "dest": data["name"]
-    }]
+    return [{"src": "liteextension", "dest": data["name"]}]
