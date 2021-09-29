@@ -32,6 +32,7 @@
     "clean": "lerna run clean",
     "install": "lerna bootstrap",
     "install:dev": "yarn run build:prod && yarn run develop",
+    "install:extension": "lerna run install:extension",
     "eslint": "eslint . --ext .ts,.tsx --fix",
     "eslint:check": "eslint . --ext .ts,.tsx",
     "lint": "yarn run eslint && yarn run prettier",
