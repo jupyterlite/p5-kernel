@@ -65,7 +65,7 @@
       ]
     },
     "hooks": {
-      "before-build-npm": [
+      "before-bump-version": [
         "python -m pip install jupyterlab~=3.1",
         "jlpm"
       ]
