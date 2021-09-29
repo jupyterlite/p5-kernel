@@ -11,7 +11,10 @@
     "url": "https://github.com/jupyterlite/jupyterlite.git"
   },
   "license": "BSD-3-Clause",
-  "author": "JupyterLite Contributors",
+  "author": {
+    "name": "JupyterLite Contributors",
+    "email": "",
+  },
   "sideEffects": [
     "style/*.css",
     "style/index.js"
