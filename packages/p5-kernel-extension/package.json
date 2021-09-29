@@ -72,5 +72,8 @@
         "singleton": true
       }
     }
+  },
+  "jupyterlite": {
+    "liteExtension": true
   }
 }
