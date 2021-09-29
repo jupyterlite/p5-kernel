@@ -12,7 +12,6 @@ import { IKernel, IKernelSpecs } from '@jupyterlite/kernel';
 
 import { P5Kernel } from '@jupyterlite/p5-kernel';
 
-// @ts-ignore
 import p5Logo from '../style/icons/p5js.png';
 
 /**
