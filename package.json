@@ -29,6 +29,7 @@
     "build": "lerna run build",
     "build:prod": "lerna run build:prod",
     "build:test": "lerna run build:test",
+    "bump:version": "lerna version --no-push --force-publish --no-git-tag-version --yes",
     "clean": "lerna run clean",
     "install": "lerna bootstrap",
     "install:dev": "yarn run build:prod && yarn run develop",
@@ -41,7 +42,6 @@
     "prettier:check": "prettier --list-different \"**/*{.ts,.tsx,.js,.jsx,.css,.json,.md}\"",
     "publish": "yarn run clean && yarn run build && lerna publish",
     "test": "lerna run test",
-    "version": "yarn run lerna version --no-push --force-publish --no-git-tag-version --yes",
     "watch": "lerna run watch"
   },
   "devDependencies": {
@@ -61,7 +61,7 @@
     "skip": ["check-links"],
     "options": {
       "version-cmd": [
-        "jlpm run version"
+        "jlpm run bump:version"
       ]
     },
     "hooks": {
