@@ -34,10 +34,16 @@ long_description = (HERE / "README.md").read_text()
 
 # Get the package info from package.json
 pkg_json = json.loads((src_path / "package.json").read_bytes())
+version = (
+    pkg_json["version"]
+    .replace("-alpha.", "a")
+    .replace("-beta.", "b")
+    .replace("-rc.", "rc")
+)
 
 setup_args = dict(
     name=NAME,
-    version=pkg_json["version"],
+    version=version,
     url=pkg_json["homepage"],
     author=pkg_json["author"]["name"],
     author_email=pkg_json["author"]["email"],
@@ -67,9 +73,7 @@ setup_args = dict(
 try:
     from jupyter_packaging import wrap_installers, npm_builder, get_data_files
 
-    post_develop = npm_builder(
-        build_cmd="install:extension", build_dir=lite_path
-    )
+    post_develop = npm_builder(build_cmd="install:extension", build_dir=lite_path)
     setup_args["cmdclass"] = wrap_installers(
         post_develop=post_develop, ensured_targets=ensured_targets
     )
