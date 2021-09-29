@@ -14,4 +14,4 @@ build_cmd = "build:prod"
 npm = ["jlpm"]
 
 [tool.check-manifest]
-ignore = ["p5_kernel_lite/labextension/**", "yarn.lock", ".*", "package-lock.json"]
+ignore = ["p5_kernel_lite/labextension/**", "yarn.lock", ".*", "*.json", "packages/**"]
