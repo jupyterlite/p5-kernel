@@ -13,7 +13,7 @@
   "license": "BSD-3-Clause",
   "author": {
     "name": "JupyterLite Contributors",
-    "email": "",
+    "email": ""
   },
   "sideEffects": [
     "style/*.css",
