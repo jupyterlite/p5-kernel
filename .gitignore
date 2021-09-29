@@ -4,7 +4,7 @@ node_modules/
 *.egg-info/
 .ipynb_checkpoints
 *.tsbuildinfo
-p5_kernel_lite/labextension
+jupyterlite_p5_kernel/labextension
 
 # Created by https://www.gitignore.io/api/python
 # Edit at https://www.gitignore.io/?templates=python

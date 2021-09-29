@@ -1,5 +1,5 @@
 """
-p5-kernel-lite setup
+jupyterlite-p5-kernel setup
 """
 import json
 import sys
@@ -10,7 +10,7 @@ import setuptools
 HERE = Path(__file__).parent.resolve()
 
 # The name of the project
-NAME = "p5-kernel-lite"
+NAME = "jupyterlite-p5-kernel"
 PACKAGE = NAME.replace("-", "_")
 
 src_path = HERE / "packages/p5-kernel-extension"

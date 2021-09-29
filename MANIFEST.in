@@ -7,7 +7,7 @@ include install.json
 include ts*.json
 include yarn.lock
 
-graft p5_kernel_lite/labextension
+graft jupyterlite_p5_kernel/labextension
 
 # Javascript files
 graft packages/**
