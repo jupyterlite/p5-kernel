@@ -73,7 +73,7 @@ setup_args = dict(
 try:
     from jupyter_packaging import wrap_installers, npm_builder, get_data_files
 
-    post_develop = npm_builder(build_cmd="install:extension", build_dir=lite_path)
+    post_develop = npm_builder(build_cmd="build", build_dir=lite_path)
     setup_args["cmdclass"] = wrap_installers(
         post_develop=post_develop, ensured_targets=ensured_targets
     )
