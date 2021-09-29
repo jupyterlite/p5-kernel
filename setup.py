@@ -14,7 +14,7 @@ NAME = "p5-kernel-lite"
 PACKAGE = NAME.replace("-", "_")
 
 src_path = HERE / "packages/p5-kernel-extension"
-lite_path = HERE / NAME.replace("-", "_") / "liteextension"
+lite_path = HERE / NAME.replace("-", "_") / "labextension"
 
 # Representative files that should exist after a successful build
 ensured_targets = [str(lite_path / "package.json"), str(lite_path / "static/style.js")]
