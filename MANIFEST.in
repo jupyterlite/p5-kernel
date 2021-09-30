@@ -1,6 +1,5 @@
 include LICENSE
-include README.md
-include RELEASE.md
+include *.md
 include pyproject.toml
 
 include package.json
@@ -8,10 +7,10 @@ include install.json
 include ts*.json
 include yarn.lock
 
-graft p5_kernel_lite/liteextension
+graft jupyterlite_p5_kernel/labextension
 
 # Javascript files
-graft src
+graft packages/**
 graft style
 prune **/node_modules
 prune lib

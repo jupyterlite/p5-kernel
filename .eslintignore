@@ -1,5 +1,31 @@
+lint-staged.config.js
+.eslintrc.js
+scripts/serve.js
+
+.yarn-packages
 node_modules
-dist
+**/build
+**/lib
+**/node_modules
+**/mock_packages
+**/static
+**/typings
+**/schemas
+**/themes
 coverage
-**/*.d.ts
-tests
+*.map.js
+*.bundle.js
+docs/_build
+app/lab/extensions/
+
+# jetbrains IDE stuff
+.idea/
+
+# ms IDE stuff
+.history/
+.vscode/
+
+# JS templating
+bootstrap.js
+index.template.js
+config-utils.js

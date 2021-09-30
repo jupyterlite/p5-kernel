@@ -1,4 +1,4 @@
-# Making a new release of p5-kernel-lite
+# Making a new release of jupyterlite-p5-kernel
 
 ## Automated releases with the Jupyter Releaser
 

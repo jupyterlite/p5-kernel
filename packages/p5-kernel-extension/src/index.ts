@@ -12,7 +12,6 @@ import { IKernel, IKernelSpecs } from '@jupyterlite/kernel';
 
 import { P5Kernel } from '@jupyterlite/p5-kernel';
 
-// @ts-ignore
 import p5Logo from '../style/icons/p5js.png';
 
 /**
@@ -33,6 +32,7 @@ const kernel: JupyterLiteServerPlugin<void> = {
       ? URLExt.join(window.location.origin, url)
       : url;
     const logo = new URL(p5Logo);
+    console.log(`logo: ${logo.pathname}`);
     kernelspecs.register({
       spec: {
         name: 'p5js',
@@ -49,7 +49,7 @@ const kernel: JupyterLiteServerPlugin<void> = {
         },
         resources: {
           'logo-32x32': 'TODO',
-          'logo-64x64': logo.pathname
+          'logo-64x64': '' // TODO: replace by logo.pathname when fixed upstream
         }
       },
       create: async (options: IKernel.IOptions): Promise<IKernel> => {

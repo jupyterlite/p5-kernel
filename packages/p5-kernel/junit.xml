@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="1" failures="0" time="6.122">
-  <testsuite name="p5.js Kernel" errors="0" failures="0" skipped="0" timestamp="2021-09-27T08:44:28" time="5.137" tests="1">
-    <testcase classname="p5.js Kernel #constructor() should create a Kernel instance" name="p5.js Kernel #constructor() should create a Kernel instance" time="0.003">
-    </testcase>
-  </testsuite>
-</testsuites>

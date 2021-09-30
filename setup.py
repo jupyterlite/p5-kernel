@@ -1,5 +1,5 @@
 """
-p5-kernel-lite setup
+jupyterlite-p5-kernel setup
 """
 import json
 import sys
@@ -10,11 +10,11 @@ import setuptools
 HERE = Path(__file__).parent.resolve()
 
 # The name of the project
-NAME = "p5-kernel-lite"
+NAME = "jupyterlite-p5-kernel"
 PACKAGE = NAME.replace("-", "_")
 
 src_path = HERE / "packages/p5-kernel-extension"
-lite_path = HERE / NAME.replace("-", "_") / "liteextension"
+lite_path = HERE / NAME.replace("-", "_") / "labextension"
 
 # Representative files that should exist after a successful build
 ensured_targets = [str(lite_path / "package.json"), str(lite_path / "static/style.js")]
@@ -23,21 +23,27 @@ labext_name = "@jupyterlite/p5-kernel"
 
 data_files_spec = [
     (
-        "share/jupyter/liteextensions/%s" % labext_name,
+        "share/jupyter/labextensions/%s" % labext_name,
         str(lite_path.relative_to(HERE)),
         "**",
     ),
-    ("share/jupyter/liteextensions/%s" % labext_name, str("."), "install.json"),
+    ("share/jupyter/labextensions/%s" % labext_name, str("."), "install.json"),
 ]
 
 long_description = (HERE / "README.md").read_text()
 
 # Get the package info from package.json
-pkg_json = json.loads(src_path / "package.json").read_bytes()
+pkg_json = json.loads((src_path / "package.json").read_bytes())
+version = (
+    pkg_json["version"]
+    .replace("-alpha.", "a")
+    .replace("-beta.", "b")
+    .replace("-rc.", "rc")
+)
 
 setup_args = dict(
     name=NAME,
-    version=pkg_json["version"],
+    version=version,
     url=pkg_json["homepage"],
     author=pkg_json["author"]["name"],
     author_email=pkg_json["author"]["email"],
@@ -67,9 +73,7 @@ setup_args = dict(
 try:
     from jupyter_packaging import wrap_installers, npm_builder, get_data_files
 
-    post_develop = npm_builder(
-        build_cmd="install:extension", source_dir="src", build_dir=lite_path
-    )
+    post_develop = npm_builder(build_cmd="build", build_dir=lite_path)
     setup_args["cmdclass"] = wrap_installers(
         post_develop=post_develop, ensured_targets=ensured_targets
     )
