@@ -2,13 +2,13 @@
   "name": "@jupyterlite/p5-kernel",
   "version": "0.1.0-alpha.10",
   "description": "JupyterLite - p5.js Kernel",
-  "homepage": "https://github.com/jupyterlite/jupyterlite",
+  "homepage": "https://github.com/jupyterlite/p5-kernel",
   "bugs": {
-    "url": "https://github.com/jupyterlite/jupyterlite/issues"
+    "url": "https://github.com/jupyterlite/p5-kernel/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jupyterlite/jupyterlite.git"
+    "url": "https://github.com/jupyterlite/p5-kernel.git"
   },
   "license": "BSD-3-Clause",
   "author": {
