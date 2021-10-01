@@ -38,8 +38,9 @@ pip uninstall jupyterlite-p5-kernel
 # Clone the repo to your local environment
 # Change directory to the fork directory
 
-# Install JupyterLab
-python -m pip install jupyterlab
+# create a new enviroment
+mamba create --name jupyterlite-p5-kernel -c conda-forge python=3.9 yarn jupyterlab
+conda activate jupyterlite-p5-kernel
 
 # Install package in development mode
 python -m pip install -e .
@@ -54,6 +55,9 @@ jlpm run build
 The extension should be linked to `PREFIX/share/jupyter/labextensions` and can be picked up by `jupyterlite`:
 
 ```bash
+# install jupyterlite
+python -m pip install jupyterlite
+
 # build a new JupyterLite site
 jupyter lite build
 
