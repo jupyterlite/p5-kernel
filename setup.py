@@ -14,17 +14,17 @@ NAME = "jupyterlite-p5-kernel"
 PACKAGE = NAME.replace("-", "_")
 
 src_path = HERE / "packages/p5-kernel-extension"
-lite_path = HERE / NAME.replace("-", "_") / "labextension"
+lab_path = HERE / NAME.replace("-", "_") / "labextension"
 
 # Representative files that should exist after a successful build
-ensured_targets = [str(lite_path / "package.json"), str(lite_path / "static/style.js")]
+ensured_targets = [str(lab_path / "package.json"), str(lab_path / "static/style.js")]
 
-labext_name = "@jupyterlite/p5-kernel"
+labext_name = "@jupyterlite/p5-kernel-extension"
 
 data_files_spec = [
     (
         "share/jupyter/labextensions/%s" % labext_name,
-        str(lite_path.relative_to(HERE)),
+        str(lab_path.relative_to(HERE)),
         "**",
     ),
     ("share/jupyter/labextensions/%s" % labext_name, str("."), "install.json"),
@@ -73,7 +73,7 @@ setup_args = dict(
 try:
     from jupyter_packaging import wrap_installers, npm_builder, get_data_files
 
-    post_develop = npm_builder(build_cmd="build", build_dir=lite_path)
+    post_develop = npm_builder(build_cmd="build", build_dir=lab_path)
     setup_args["cmdclass"] = wrap_installers(
         post_develop=post_develop, ensured_targets=ensured_targets
     )
