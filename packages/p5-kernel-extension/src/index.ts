@@ -32,7 +32,6 @@ const kernel: JupyterLiteServerPlugin<void> = {
       ? URLExt.join(window.location.origin, url)
       : url;
     const logo = new URL(p5Logo);
-    console.log(`logo: ${logo.pathname}`);
     kernelspecs.register({
       spec: {
         name: 'p5js',
