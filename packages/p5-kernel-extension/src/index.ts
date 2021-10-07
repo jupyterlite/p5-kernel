@@ -49,7 +49,7 @@ const kernel: JupyterLiteServerPlugin<void> = {
         },
         resources: {
           'logo-32x32': 'TODO',
-          'logo-64x64': '' // TODO: replace by logo.pathname when fixed upstream
+          'logo-64x64': logo.pathname
         }
       },
       create: async (options: IKernel.IOptions): Promise<IKernel> => {
