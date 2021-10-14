@@ -2,6 +2,26 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.1.0a12
+
+([Full Changelog](https://github.com/jupyterlite/p5-kernel/compare/v0.1.0a11...a14b3b80924870e6eac71dd1982594df1cb102a2))
+
+### Bugs fixed
+
+- Fix handling of the logo [#9](https://github.com/jupyterlite/p5-kernel/pull/9) ([@jtpio](https://github.com/jtpio))
+
+### Documentation improvements
+
+- changed readme [#7](https://github.com/jupyterlite/p5-kernel/pull/7) ([@DerThorsten](https://github.com/DerThorsten))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlite/p5-kernel/graphs/contributors?from=2021-10-01&to=2021-10-14&type=c))
+
+[@DerThorsten](https://github.com/search?q=repo%3Ajupyterlite%2Fp5-kernel+involves%3ADerThorsten+updated%3A2021-10-01..2021-10-14&type=Issues) | [@jtpio](https://github.com/search?q=repo%3Ajupyterlite%2Fp5-kernel+involves%3Ajtpio+updated%3A2021-10-01..2021-10-14&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.1.0a11
 
 ([Full Changelog](https://github.com/jupyterlite/p5-kernel/compare/@jupyterlite/p5-kernel-extension@0.1.0-alpha.10...16bed8258f82806a188f070ee8024b16228dfdd4))
@@ -16,8 +36,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlite/p5-kernel/graphs/contributors?from=2021-09-30&to=2021-10-01&type=c))
 
 [@jtpio](https://github.com/search?q=repo%3Ajupyterlite%2Fp5-kernel+involves%3Ajtpio+updated%3A2021-09-30..2021-10-01&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.1.0a10
 
