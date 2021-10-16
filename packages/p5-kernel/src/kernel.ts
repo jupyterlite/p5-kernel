@@ -30,6 +30,8 @@ export class P5Kernel extends JavaScriptKernel implements IKernel {
         return Promise.resolve();
       })
     `;
+    // use the kernel id as a display id
+    this._displayId = this.id;
     // wait for the parent IFrame to be ready
     super.ready.then(() => {
       this._eval(this._bootstrap);
@@ -84,10 +86,19 @@ export class P5Kernel extends JavaScriptKernel implements IKernel {
     content: KernelMessage.IExecuteRequestMsg['content']
   ): Promise<KernelMessage.IExecuteReplyMsg['content']> {
     const { code } = content;
-    if (code.startsWith('%')) {
-      const res = await this._magics(code);
+    const transient = {
+      display_id: this._displayId
+    };
+    // handle magics first
+    if (code.startsWith('%show')) {
+      const magics = await this._magics(code);
+      const res = {
+        ...magics,
+        transient
+      };
       if (res) {
-        this.publishExecuteResult(res);
+        this.displayData(res);
+        this._parentHeaders.push(this['_parentHeader']);
 
         return {
           status: 'ok',
@@ -97,10 +108,35 @@ export class P5Kernel extends JavaScriptKernel implements IKernel {
       }
     }
 
-    const res = super.executeRequest(content);
-    this._inputs.push(code);
+    // execute JavaScript code in the IFrame
+    const result = await super.executeRequest(content);
+    if (result.status !== 'ok') {
+      return result;
+    }
 
-    return res;
+    // only store the input if the execution is successful
+    if (!code.trim().startsWith('%')) {
+      this._inputs.push(code);
+    }
+
+    // update existing displays since the executed code might affect the rendering
+    // of existing sketches
+
+    const magics = await this._magics();
+    const { data, metadata } = magics;
+    this._parentHeaders.forEach(h => {
+      this.clearOutput({ wait: false });
+      this.updateDisplayData(
+        {
+          data,
+          metadata,
+          transient
+        },
+        h
+      );
+    });
+
+    return result;
   }
 
   /**
@@ -109,44 +145,52 @@ export class P5Kernel extends JavaScriptKernel implements IKernel {
    * @param code The code block to handle.
    */
   private async _magics(
-    code: string
-  ): Promise<KernelMessage.IExecuteResultMsg['content'] | undefined> {
-    if (code.startsWith('%show')) {
-      const input = this._inputs.map(c => `window.eval(\`${c}\`);`).join('\n');
-      const script = `
+    code = ''
+  ): Promise<KernelMessage.IExecuteResultMsg['content']> {
+    const input = this._inputs
+      .map(c => {
+        const exec = ['try {', `window.eval(\`${c}\`);`, '} catch(e) {}'].join(
+          '\n'
+        );
+        return exec;
+      })
+      .join('\n');
+    const script = `
         ${this._bootstrap}.then(() => {
           ${input}
           window.__globalP5._start();
         })
       `;
 
-      // add metadata
-      const re = /^%show(?: (.+)\s+(.+))?\s*$/;
-      const matches = code.match(re);
-      const width = matches?.[1] ?? undefined;
-      const height = matches?.[2] ?? undefined;
-      return {
-        execution_count: this.executionCount,
-        data: {
-          [MIME_TYPE]: [
-            '<body style="overflow: hidden;">',
-            `<script>${script}</script>`,
-            '</body>'
-          ].join('\n')
-        },
-        metadata: {
-          [MIME_TYPE]: {
-            width,
-            height
-          }
+    // add metadata
+    const re = /^%show(?: (.+)\s+(.+))?\s*$/;
+    const matches = code.match(re);
+    const width = matches?.[1] ?? undefined;
+    const height = matches?.[2] ?? undefined;
+    return {
+      execution_count: this.executionCount,
+      data: {
+        [MIME_TYPE]: [
+          '<body style="overflow: hidden;">',
+          `<script>${script}</script>`,
+          '</body>'
+        ].join('\n')
+      },
+      metadata: {
+        [MIME_TYPE]: {
+          width,
+          height
         }
-      };
-    }
+      }
+    };
   }
 
+  private _displayId = '';
   private _bootstrap = '';
   private _inputs: string[] = [];
   private _p5Ready = new PromiseDelegate<void>();
+  private _parentHeaders: KernelMessage.IHeader<KernelMessage.MessageType>[] =
+    [];
 }
 
 /**
