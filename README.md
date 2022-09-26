@@ -15,10 +15,10 @@ A p5.js kernel for JupyterLite.
 This JupyterLite kernel can be installed as a federated server extension.
 
 ```bash
-# install the kernel
+# Install the kernel
 pip install jupyterlite-p5-kernel
 
-# build a new JupyterLite site
+# Build a new JupyterLite site
 jupyter lite build
 ```
 
@@ -55,14 +55,51 @@ jlpm run build
 The extension should be linked to `PREFIX/share/jupyter/labextensions` and can be picked up by `jupyterlite`:
 
 ```bash
-# install jupyterlite
+# Install jupyterlite
 python -m pip install jupyterlite
 
-# build a new JupyterLite site
+# Build a new JupyterLite site
 jupyter lite build
 
-# server the site
+# Serve the site
 jupyter lite serve
+
+# Launch a browser to the Jupyterlite server url
+python -m webbrowser http://localhost:8000/
 ```
 
-Then go to http://localhost:8000 to launch JupyterLite with the federated server extension.
+
+
+## References
+### p5.js
+- Processing > ProcessingJS > p5.js
+  https://en.wikipedia.org/wiki/Processing#p5.js
+- https://github.com/processing/p5.js
+- https://p5js.org/learn/
+- https://p5js.org/reference/ API docs
+- https://p5js.org/examples/
+  - https://p5js.org/examples/math-additive-wave.html
+  - https://p5js.org/examples/interaction-wavemaker.html
+- https://p5js.org/examples/objects-objects.html
+- https://github.com/processing/p5.js/wiki/Beyond-the-canvas#creating-html-images
+- https://github.com/processing/p5.js/wiki/Getting-started-with-WebGL-in-p5#introducing-webgl-in-p5js
+- Summer of Code
+  https://github.com/processing/p5.js/wiki#google-summer-of-code-and-processing-fellowships
+- Season of Docs
+  https://github.com/processing/p5.js/wiki#season-of-docs
+
+
+#### p5.js Learning Resources
+- https://github.com/processing/p5.js/wiki/Educational-Resources
+- https://www.khanacademy.org/computing/computer-programming/pjs-documentation
+  - https://www.khanacademy.org/computing/computer-programming/programming-games-visualizations/advanced-development-tools/a/using-processingjs-outside-khan-academy
+- Khan Academy > Computer Programming > "Intro to JS: Drawing & Animation"
+  https://www.khanacademy.org/computing/computer-programming/programming
+  - https://github.com/processing/p5.js/wiki/Processing-transition#overview-of-differences
+  - https://github.com/processing/p5.js/wiki/p5.js-overview#how-is-this-different-than-processingjs
+- Khan Academy > Computing > Pixar in a Box
+  https://www.khanacademy.org/computing/pixar
+  - https://www.khanacademy.org/computing/pixar/simulation#hair-simulation-code
+  - https://www.khanacademy.org/computing/pixar/pixar-rigging#code-character
+  - https://en.wikipedia.org/wiki/Lorentz_transformation Rotation about a point other than the origin
+  - https://en.wikipedia.org/wiki/Quaternion
