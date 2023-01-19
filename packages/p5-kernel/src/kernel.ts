@@ -12,7 +12,7 @@ import { PromiseDelegate } from '@lumino/coreutils';
 const MIME_TYPE = 'text/html-sandboxed';
 
 /**
- * A kernel that executes code in an IFrame.
+ * A kernel for making p5 sketches in the browser
  */
 export class P5Kernel extends JavaScriptKernel implements IKernel {
   /**
@@ -33,8 +33,8 @@ export class P5Kernel extends JavaScriptKernel implements IKernel {
     // use the kernel id as a display id
     this._displayId = this.id;
     // wait for the parent IFrame to be ready
-    super.ready.then(() => {
-      this._eval(this._bootstrap);
+    super.ready.then(async () => {
+      await this.remoteKernel.execute({ code: this._bootstrap }, this.parent);
       this._p5Ready.resolve();
     });
   }
@@ -108,7 +108,6 @@ export class P5Kernel extends JavaScriptKernel implements IKernel {
       }
     }
 
-    // execute JavaScript code in the IFrame
     const result = await super.executeRequest(content);
     if (result.status !== 'ok') {
       return result;
