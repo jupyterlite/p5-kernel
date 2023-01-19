@@ -1,8 +1,6 @@
 import { KernelMessage } from '@jupyterlab/services';
 
-import { IKernel } from '@jupyterlite/kernel';
-
-import { JavaScriptKernel } from '@jupyterlite/javascript-kernel';
+import { BaseKernel, IKernel } from '@jupyterlite/kernel';
 
 import { PromiseDelegate } from '@lumino/coreutils';
 
@@ -14,7 +12,7 @@ const MIME_TYPE = 'text/html-sandboxed';
 /**
  * A kernel for making p5 sketches in the browser
  */
-export class P5Kernel extends JavaScriptKernel implements IKernel {
+export class P5Kernel extends BaseKernel implements IKernel {
   /**
    * Instantiate a new P5Kernel.
    *
@@ -34,7 +32,7 @@ export class P5Kernel extends JavaScriptKernel implements IKernel {
     this._displayId = this.id;
     // wait for the parent IFrame to be ready
     super.ready.then(async () => {
-      await this.remoteKernel.execute({ code: this._bootstrap }, this.parent);
+      // TODO
       this._p5Ready.resolve();
     });
   }

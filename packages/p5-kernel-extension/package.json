@@ -68,10 +68,6 @@
       "@jupyterlite/kernel": {
         "bundled": false,
         "singleton": true
-      },
-      "@jupyterlite/javascript-kernel": {
-        "bundled": false,
-        "singleton": true
       }
     }
   },

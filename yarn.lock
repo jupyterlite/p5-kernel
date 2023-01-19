@@ -1792,15 +1792,6 @@
     localforage "^1.9.0"
     mime "^3.0.0"
 
-"@jupyterlite/javascript-kernel@^0.1.0-beta.18":
-  version "0.1.0-beta.18"
-  resolved "https://registry.yarnpkg.com/@jupyterlite/javascript-kernel/-/javascript-kernel-0.1.0-beta.18.tgz#f75c738e53ddf4c7d304ced81191e1ec7cb0a986"
-  integrity sha512-FATbSEeXi+Am2dmY4GWltnzHCQXCKM6oMikLmWxJRKIOBqjbFPbmFPe/Rzfb7lXV9tz/3PtgEAkvmXIfG2ny4w==
-  dependencies:
-    "@jupyterlab/coreutils" "^5.5.2"
-    "@jupyterlite/kernel" "^0.1.0-beta.18"
-    comlink "^4.3.1"
-
 "@jupyterlite/kernel@^0.1.0-beta.18":
   version "0.1.0-beta.18"
   resolved "https://registry.yarnpkg.com/@jupyterlite/kernel/-/kernel-0.1.0-beta.18.tgz#5c6051f2f6d00c0b0a38fdcc3148a132402d6be6"
