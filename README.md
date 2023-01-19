@@ -8,7 +8,7 @@ A p5.js kernel for JupyterLite.
 
 ## Requirements
 
-- [JupyterLite](https://github.com/jupyterlite/jupyterlite) `0.1.0a10+`
+- [JupyterLite](https://github.com/jupyterlite/jupyterlite) `0.1.0b18+`
 
 ## Install
 
