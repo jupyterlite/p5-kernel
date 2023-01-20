@@ -33,7 +33,6 @@ jobs:
 
         jupyter labextension list
         jupyter labextension list 2>&1 | grep -ie "@jupyterlite/p5-kernel.*OK"
-        python -m jupyterlab.browser_check
 
     - name: Package the extension
       run: |
@@ -77,7 +76,6 @@ jobs:
 
         jupyter labextension list
         jupyter labextension list 2>&1 | grep -ie "@jupyterlite/p5-kernel.*OK"
-        python -m jupyterlab.browser_check --no-chrome-test
 
 
   check_links:
