@@ -1,17 +1,70 @@
 [build-system]
-requires = ["jupyter_packaging~=0.10,<2", "jupyterlab~=3.1"]
-build-backend = "jupyter_packaging.build_api"
+requires = ["hatchling>=1.4.0", "jupyterlab>=3.4.7,<4.0.0", "hatch-nodejs-version"]
+build-backend = "hatchling.build"
 
-[tool.jupyter-packaging.options]
+[project]
+name = "jupyterlite-p5-kernel"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.7"
+classifiers = [
+    "Framework :: Jupyter",
+    "License :: OSI Approved :: BSD License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+]
+dependencies = []
+dynamic = ["version", "description", "authors", "urls", "keywords"]
+
+[tool.hatch.version]
+source = "nodejs"
+
+[tool.hatch.metadata.hooks.nodejs]
+fields = ["description", "authors", "urls"]
+
+[tool.hatch.build.targets.sdist]
+artifacts = ["jupyterlite_p5_kernel/labextension"]
+exclude = [".github", ".binder"]
+
+[tool.hatch.build.targets.wheel.shared-data]
+"jupyterlite_p5_kernel/labextension" = "share/jupyter/labextensions/@jupyterlite/p5-kernel"
+"install.json" = "share/jupyter/labextensions/@jupyterlite/p5-kernel/install.json"
+
+[tool.hatch.build.hooks.version]
+path = "jupyterlite_p5_kernel/_version.py"
+
+[tool.hatch.build.hooks.jupyter-builder]
+dependencies = ["hatch-jupyter-builder>=0.5"]
+build-function = "hatch_jupyter_builder.npm_builder"
+ensured-targets = [
+    "jupyterlite_p5_kernel/labextension/static/style.js",
+    "jupyterlite_p5_kernel/labextension/package.json",
+]
 skip-if-exists = ["jupyterlite_p5_kernel/labextension/static/style.js"]
-ensured-targets = ["jupyterlite_p5_kernel/labextension/static/style.js", "jupyterlite_p5_kernel/labextension/package.json"]
 
-[tool.jupyter-packaging.builder]
-factory = "jupyter_packaging.npm_builder"
-
-[tool.jupyter-packaging.build-args]
+[tool.hatch.build.hooks.jupyter-builder.build-kwargs]
 build_cmd = "build:prod"
 npm = ["jlpm"]
 
-[tool.check-manifest]
-ignore = ["jupyterlite_p5_kernel/labextension/**", "yarn.lock", ".*", "*.json", "packages/**"]
+[tool.hatch.build.hooks.jupyter-builder.editable-build-kwargs]
+build_cmd = "install:extension"
+npm = ["jlpm"]
+source_dir = "src"
+build_dir = "jupyterlite_p5_kernel/labextension"
+
+[tool.jupyter-releaser.options]
+version_cmd = "jlpm run bump:version"
+
+[tool.jupyter-releaser.hooks]
+before-bump-version = ["python -m pip install jupyterlab~=3.1"]
+after-bump-version = ["jlpm run sync:version"]
+before-build-npm = ["python -m pip install jupyterlab~=3.1", "jlpm", "jlpm build:prod"]
+before-build-python = ["jlpm clean"]
+
+[tool.check-wheel-contents]
+ignore = ["W002"]

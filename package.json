@@ -1,7 +1,7 @@
 {
   "name": "@jupyterlite/p5-kernel-root",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.1.0-alpha.12",
   "keywords": [
     "jupyter",
     "jupyterlab",
@@ -41,6 +41,7 @@
     "prettier": "prettier --write \"**/*{.ts,.tsx,.js,.jsx,.css,.json,.md}\"",
     "prettier:check": "prettier --list-different \"**/*{.ts,.tsx,.js,.jsx,.css,.json,.md}\"",
     "publish": "yarn run clean && yarn run build && lerna publish",
+    "sync:version": "python scripts/sync-version.py",
     "test": "lerna run test",
     "watch": "lerna run watch"
   },
@@ -50,25 +51,11 @@
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
-    "lerna": "^4.0.0",
+    "lerna": "^6.4.1",
     "lint-staged": "^10.4.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.4.1",
     "rimraf": "^3.0.2",
     "shell-quote": "^1.7.2"
-  },
-  "jupyter-releaser": {
-    "skip": ["check-links"],
-    "options": {
-      "version-cmd": [
-        "jlpm run bump:version"
-      ]
-    },
-    "hooks": {
-      "before-bump-version": [
-        "python -m pip install jupyterlab~=3.1",
-        "jlpm"
-      ]
-    }
   }
 }

@@ -22,7 +22,7 @@ pip install jupyterlite-p5-kernel
 jupyter lite build
 ```
 
-See the JupyterLite documentation for more information on how to build sites and include additional extensions: https://jupyterlite.readthedocs.io/en/latest/configuring.html#adding-extensions
+See the JupyterLite documentation for more information on how to build sites and include additional extensions: https://jupyterlite.readthedocs.io/en/latest/howto/index.html
 
 ## Uninstall
 
@@ -68,10 +68,10 @@ jupyter lite serve
 python -m webbrowser http://localhost:8000/
 ```
 
-
-
 ## References
+
 ### p5.js
+
 - Processing > ProcessingJS > p5.js
   https://en.wikipedia.org/wiki/Processing#p5.js
 - https://github.com/processing/p5.js
@@ -88,8 +88,8 @@ python -m webbrowser http://localhost:8000/
 - Season of Docs
   https://github.com/processing/p5.js/wiki#season-of-docs
 
-
 #### p5.js Learning Resources
+
 - https://github.com/processing/p5.js/wiki/Educational-Resources
 - https://www.khanacademy.org/computing/computer-programming/pjs-documentation
   - https://www.khanacademy.org/computing/computer-programming/programming-games-visualizations/advanced-development-tools/a/using-processingjs-outside-khan-academy
