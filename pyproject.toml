@@ -62,6 +62,7 @@ build_dir = "jupyterlite_p5_kernel/labextension"
 version_cmd = "jlpm run bump:version"
 
 [tool.jupyter-releaser.hooks]
+before-bump-version = ["python -m pip install jupyterlab~=3.1"]
 before-build-npm = ["python -m pip install jupyterlab~=3.1", "jlpm", "jlpm build:prod"]
 before-build-python = ["jlpm clean"]
 
