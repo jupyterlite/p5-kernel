@@ -64,6 +64,7 @@ version_cmd = "jlpm run bump:version"
 
 [tool.jupyter-releaser.hooks]
 before-bump-version = ["python -m pip install jupyterlab~=3.1"]
+after-bump-version = ["jlpm run sync:version"]
 before-build-npm = ["python -m pip install jupyterlab~=3.1", "jlpm", "jlpm build:prod"]
 before-build-python = ["jlpm clean"]
 
