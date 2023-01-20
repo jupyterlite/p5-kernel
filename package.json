@@ -41,6 +41,7 @@
     "prettier": "prettier --write \"**/*{.ts,.tsx,.js,.jsx,.css,.json,.md}\"",
     "prettier:check": "prettier --list-different \"**/*{.ts,.tsx,.js,.jsx,.css,.json,.md}\"",
     "publish": "yarn run clean && yarn run build && lerna publish",
+    "sync:version": "python scripts/sync-version.py",
     "test": "lerna run test",
     "watch": "lerna run watch"
   },
