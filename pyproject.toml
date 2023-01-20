@@ -26,6 +26,7 @@ source = "nodejs"
 
 [tool.hatch.metadata.hooks.nodejs]
 fields = ["description", "authors", "urls"]
+path = "packages/p5-kernel-extension/package.json
 
 [tool.hatch.build.targets.sdist]
 artifacts = ["jupyterlite_p5_kernel/labextension"]
@@ -58,7 +59,7 @@ source_dir = "src"
 build_dir = "jupyterlite_p5_kernel/labextension"
 
 [tool.jupyter-releaser.options]
-version_cmd = "hatch version"
+version_cmd = "jlpm run bump:version"
 
 [tool.jupyter-releaser.hooks]
 before-build-npm = ["python -m pip install jupyterlab~=3.1", "jlpm", "jlpm build:prod"]
