@@ -21,13 +21,6 @@ export class P5Kernel extends BaseKernel implements IKernel {
   constructor(options: P5Kernel.IOptions) {
     super(options);
     const { p5Url } = options;
-    const bootstrap = `
-      import('${p5Url}').then(() => {
-        // create the p5 global instance
-        window.__globalP5 = new p5();
-        return Promise.resolve();
-      })
-    `;
 
     // use the kernel id as a display id
     this._displayId = this.id;
@@ -38,9 +31,19 @@ export class P5Kernel extends BaseKernel implements IKernel {
     this._iframe.style.position = 'absolute';
     // position outside of the page
     this._iframe.style.top = '-100000px';
+
+    // p5 bootstrap code
+    this._bootstrap = `
+    import('${p5Url}').then(() => {
+      // create the p5 global instance
+      window.__globalP5 = new p5();
+      return Promise.resolve();
+    })
+  `;
+
     this._iframe.onload = async () => {
       await this._initIFrame();
-      this._eval(bootstrap);
+      this._eval(this._bootstrap);
       this._ready.resolve();
       window.addEventListener('message', (e: MessageEvent) => {
         const msg = e.data;
