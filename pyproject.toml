@@ -26,7 +26,7 @@ source = "nodejs"
 
 [tool.hatch.metadata.hooks.nodejs]
 fields = ["description", "authors", "urls"]
-path = "packages/p5-kernel-extension/package.json
+path = "packages/p5-kernel-extension/package.json"
 
 [tool.hatch.build.targets.sdist]
 artifacts = ["jupyterlite_p5_kernel/labextension"]
