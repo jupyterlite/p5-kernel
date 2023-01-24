@@ -41,7 +41,7 @@ pip uninstall jupyterlite-p5-kernel
 
 # create a new enviroment
 mamba create --name jupyterlite-p5-kernel -c conda-forge python=3.9 yarn jupyterlab
-conda activate jupyterlite-p5-kernel
+mamba activate jupyterlite-p5-kernel
 
 # Install package in development mode
 python -m pip install -e .
