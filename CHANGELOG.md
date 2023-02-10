@@ -2,6 +2,27 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.1.1
+
+([Full Changelog](https://github.com/jupyterlite/p5-kernel/compare/@jupyterlite/p5-kernel-extension@0.1.0...3dd4b3c779cdb12f4dde130eab2f6c95f9530e97))
+
+### Maintenance and upkeep improvements
+
+- Update to p5 1.5.0 [#23](https://github.com/jupyterlite/p5-kernel/pull/23) ([@jtpio](https://github.com/jtpio))
+- Add releaser workflows [#22](https://github.com/jupyterlite/p5-kernel/pull/22) ([@jtpio](https://github.com/jtpio))
+
+### Documentation improvements
+
+- Use `mamba` to activate the environment [#21](https://github.com/jupyterlite/p5-kernel/pull/21) ([@jtpio](https://github.com/jtpio))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlite/p5-kernel/graphs/contributors?from=2023-01-21&to=2023-02-10&type=c))
+
+[@github-actions](https://github.com/search?q=repo%3Ajupyterlite%2Fp5-kernel+involves%3Agithub-actions+updated%3A2023-01-21..2023-02-10&type=Issues) | [@jtpio](https://github.com/search?q=repo%3Ajupyterlite%2Fp5-kernel+involves%3Ajtpio+updated%3A2023-01-21..2023-02-10&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.1.0
 
 ([Full Changelog](https://github.com/jupyterlite/p5-kernel/compare/f45a8d32cbae40472fa1e0a0e9fcc8351486005b...27da1b9b7087582dde632dfb2627e45e615733f1))
@@ -37,8 +58,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlite/p5-kernel/graphs/contributors?from=2021-09-29&to=2023-01-21&type=c))
 
 [@bollwyvl](https://github.com/search?q=repo%3Ajupyterlite%2Fp5-kernel+involves%3Abollwyvl+updated%3A2021-09-29..2023-01-21&type=Issues) | [@DerThorsten](https://github.com/search?q=repo%3Ajupyterlite%2Fp5-kernel+involves%3ADerThorsten+updated%3A2021-09-29..2023-01-21&type=Issues) | [@jtpio](https://github.com/search?q=repo%3Ajupyterlite%2Fp5-kernel+involves%3Ajtpio+updated%3A2021-09-29..2023-01-21&type=Issues) | [@M0JPI](https://github.com/search?q=repo%3Ajupyterlite%2Fp5-kernel+involves%3AM0JPI+updated%3A2021-09-29..2023-01-21&type=Issues) | [@westurner](https://github.com/search?q=repo%3Ajupyterlite%2Fp5-kernel+involves%3Awesturner+updated%3A2021-09-29..2023-01-21&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.1.0a12
 
