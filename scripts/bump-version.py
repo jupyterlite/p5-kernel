@@ -1,5 +1,15 @@
-from pathlib import Path
+import argparse
 import json
+
+from pathlib import Path
+from subprocess import run
+
+parser = argparse.ArgumentParser()
+parser.add_argument("version")
+args = parser.parse_args()
+version = args.version
+
+run(f'jlpm run bump:js:version {version}', shell=True, check=True)
 
 root = Path(__file__).parent.parent
 version_file = root / "packages" / "p5-kernel-extension" / "package.json"
