@@ -29,7 +29,7 @@
     "build": "lerna run build",
     "build:prod": "lerna run build:prod",
     "build:test": "lerna run build:test",
-    "bump:version": "lerna version --no-push --force-publish --no-git-tag-version --yes",
+    "bump:js:version": "lerna version --no-push --force-publish --no-git-tag-version --yes",
     "clean": "lerna run clean",
     "install": "lerna bootstrap",
     "install:dev": "yarn run build:prod && yarn run develop",
@@ -41,7 +41,6 @@
     "prettier": "prettier --write \"**/*{.ts,.tsx,.js,.jsx,.css,.json,.md}\"",
     "prettier:check": "prettier --list-different \"**/*{.ts,.tsx,.js,.jsx,.css,.json,.md}\"",
     "publish": "yarn run clean && yarn run build && lerna publish",
-    "sync:version": "python scripts/sync-version.py",
     "test": "lerna run test",
     "watch": "lerna run watch"
   },
