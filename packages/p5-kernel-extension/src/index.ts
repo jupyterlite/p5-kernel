@@ -17,7 +17,7 @@ import p5Logo from '../style/icons/p5js.png';
 /**
  * The default CDN fallback for p5.js
  */
-const P5_CDN_URL = 'https://cdn.jsdelivr.net/npm/p5@1.4.2/lib/p5.js';
+const P5_CDN_URL = 'https://cdn.jsdelivr.net/npm/p5@1.5.0/lib/p5.js';
 
 /**
  * A plugin to register the p5.js kernel.
