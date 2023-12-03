@@ -40,7 +40,7 @@ pip uninstall jupyterlite-p5-kernel
 # Change directory to the fork directory
 
 # create a new enviroment
-mamba create --name jupyterlite-p5-kernel -c conda-forge python=3.9 yarn jupyterlab
+mamba create --name jupyterlite-p5-kernel -c conda-forge python=3.11 yarn jupyterlab=4
 mamba activate jupyterlite-p5-kernel
 
 # Install package in development mode

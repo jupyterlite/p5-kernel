@@ -1,5 +1,5 @@
 [build-system]
-requires = ["hatchling>=1.4.0", "jupyterlab>=3.4.7,<4.0.0", "hatch-nodejs-version"]
+requires = ["hatchling>=1.4.0", "jupyterlab>=4.0.9,<5.0.0", "hatch-nodejs-version"]
 build-backend = "hatchling.build"
 
 [project]
@@ -61,8 +61,8 @@ build_dir = "jupyterlite_p5_kernel/labextension"
 version_cmd = "python scripts/bump-version.py"
 
 [tool.jupyter-releaser.hooks]
-before-bump-version = ["python -m pip install jupyterlab~=3.1"]
-before-build-npm = ["python -m pip install jupyterlab~=3.1", "jlpm", "jlpm build:prod"]
+before-bump-version = ["python -m pip install jupyterlab~=4.0"]
+before-build-npm = ["python -m pip install jupyterlab~=4.0", "jlpm", "jlpm build:prod"]
 before-build-python = ["jlpm clean"]
 
 [tool.check-wheel-contents]
