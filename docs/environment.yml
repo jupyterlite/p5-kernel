@@ -2,7 +2,6 @@ name: jupyterlite-p5-kernel
 channels:
 - conda-forge
 dependencies:
-- build
 - pip
 - python=3.11
 - ipywidgets>=8.1,<9
