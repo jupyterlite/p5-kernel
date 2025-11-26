@@ -5,7 +5,7 @@ build:
   tools:
     python: mambaforge-latest
   commands:
-    - mamba install -c conda-forge -c nodefaults --yes --file docs/environment.yml
+    - mamba env update --name base --file docs/environment.yml
     - python -m pip install .
     - jupyter lite build
     - rm -rf $READTHEDOCS_OUTPUT/html && cp -r dist $READTHEDOCS_OUTPUT/html
