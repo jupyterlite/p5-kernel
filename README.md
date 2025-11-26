@@ -76,12 +76,12 @@ python -m webbrowser http://localhost:8000/
 - Processing > ProcessingJS > p5.js
   https://en.wikipedia.org/wiki/Processing#p5.js
 - https://github.com/processing/p5.js
-- https://p5js.org/learn/
+- https://p5js.org/tutorials/
 - https://p5js.org/reference/ API docs
 - https://p5js.org/examples/
-  - https://p5js.org/examples/math-additive-wave.html
-  - https://p5js.org/examples/interaction-wavemaker.html
-- https://p5js.org/examples/objects-objects.html
+  - https://p5js.org/examples/angles-and-motion-sine-cosine/
+  - https://p5js.org/examples/animation-and-variables-animation-with-events/
+- https://p5js.org/examples/classes-and-objects-snowflakes/
 - https://github.com/processing/p5.js/wiki/Beyond-the-canvas#creating-html-images
 - https://github.com/processing/p5.js/wiki/Getting-started-with-WebGL-in-p5#introducing-webgl-in-p5js
 - Summer of Code
