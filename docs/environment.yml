@@ -1,18 +1,15 @@
 name: jupyterlite-p5-kernel
-
 channels:
 - conda-forge
-
 dependencies:
 - build
-- python=3.10
+- pip
+- python=3.11
 - mamba
 - pydata-sphinx-theme
 - myst-parser
-- ipywidgets>=8.0,<9
-- jupyterlab>=3.5.0,<4
-- nodejs=18
-- pip:
-  - jupyterlite-sphinx
-  - jupyterlite==0.1.0b17
-  - ..
+- ipywidgets>=8.1,<9
+- jupyterlab>=4.5.0,<5
+- nodejs=22
+- jupyterlite-core>=0.7.0,<0.8
+- jupyterlite-sphinx
