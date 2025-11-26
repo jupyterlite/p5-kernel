@@ -6,19 +6,23 @@ on:
   pull_request:
     branches: '*'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Base Setup
       uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
 
     - name: Install dependencies
-      run: python -m pip install -U jupyterlab~=3.1
+      run: python -m pip install -U "jupyterlab>=4.0.0,<5"
 
     - name: Lint the extension
       run: |
@@ -43,25 +47,64 @@ jobs:
         pip uninstall -y "jupyterlite_p5_kernel" jupyterlab
 
     - name: Upload extension packages
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: extension-artifacts
         path: dist/jupyterlite_p5_kernel*
         if-no-files-found: error
+
+  build_lite:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/download-artifact@v4
+        with:
+          name: extension-artifacts
+      - name: Install the dependencies
+        run: |
+          python -m pip install --pre jupyterlite-core jupyterlite_p5_kernel*.whl
+      - name: Build the JupyterLite site
+        run: |
+          jupyter lite build --output-dir dist
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+  deploy_lite:
+    needs: build_lite
+    if: github.ref == 'refs/heads/main'
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
 
   test_isolated:
     needs: build
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
     - name: Install Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
-        python-version: '3.9'
+        python-version: '3.10'
         architecture: 'x64'
-    - uses: actions/download-artifact@v3
+    - uses: actions/download-artifact@v4
       with:
         name: extension-artifacts
     - name: Install and Test
@@ -71,11 +114,14 @@ jobs:
         sudo rm -rf $(which node)
         sudo rm -rf $(which node)
 
-        pip install "jupyterlab~=3.1" jupyterlite_p5_kernel*.whl
+        pip install "jupyterlab>=4.0.0,<5" jupyterlite_p5_kernel*.whl
 
 
         jupyter labextension list
         jupyter labextension list 2>&1 | grep -ie "@jupyterlite/p5-kernel.*OK"
+
+        # TODO: add JupyterLite browser check
+        # python -m jupyterlab.browser_check --no-browser-test
 
 
   check_links:
@@ -83,8 +129,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
       - uses: jupyterlab/maintainer-tools/.github/actions/check-links@v1
-        with:
-          ignore_links: "./lite/lab.*"
