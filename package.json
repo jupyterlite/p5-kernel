@@ -31,6 +31,7 @@
     "build:test": "lerna run build:test",
     "bump:js:version": "lerna version --no-push --force-publish --no-git-tag-version --yes",
     "clean": "lerna run clean",
+    "clean:all": "lerna run clean && rimraf node_modules",
     "install:dev": "yarn run build:prod && yarn run develop",
     "install:extension": "jupyter labextension develop --overwrite .",
     "eslint": "eslint . --ext .ts,.tsx --fix",
