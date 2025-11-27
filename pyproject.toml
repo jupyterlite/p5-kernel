@@ -62,7 +62,7 @@ source_dir = "src"
 build_dir = "jupyterlite_p5_kernel/labextension"
 
 [tool.jupyter-releaser.options]
-version_cmd = "hatch version"
+version_cmd = "python scripts/bump-version.py"
 
 [tool.jupyter-releaser.hooks]
 before-build-npm = [
