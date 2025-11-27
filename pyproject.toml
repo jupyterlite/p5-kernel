@@ -65,6 +65,9 @@ build_dir = "jupyterlite_p5_kernel/labextension"
 version_cmd = "python scripts/bump-version.py"
 
 [tool.jupyter-releaser.hooks]
+before-bump-version = [
+    "python -m pip install 'jupyterlab>=4.0.0,<5'"
+]
 before-build-npm = [
     "python -m pip install 'jupyterlab>=4.0.0,<5'",
     "jlpm",
