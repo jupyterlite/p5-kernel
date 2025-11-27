@@ -4,11 +4,13 @@
 import { PageConfig, URLExt } from '@jupyterlab/coreutils';
 
 import {
-  JupyterLiteServer,
-  JupyterLiteServerPlugin
-} from '@jupyterlite/server';
+  JupyterFrontEnd,
+  JupyterFrontEndPlugin
+} from '@jupyterlab/application';
 
-import { IKernel, IKernelSpecs } from '@jupyterlite/kernel';
+import type { IKernel } from '@jupyterlite/services';
+
+import { IKernelSpecs } from '@jupyterlite/services';
 
 import { P5Kernel } from '@jupyterlite/p5-kernel';
 
@@ -22,11 +24,11 @@ const P5_CDN_URL = 'https://cdn.jsdelivr.net/npm/p5@1.5.0/lib/p5.js';
 /**
  * A plugin to register the p5.js kernel.
  */
-const kernel: JupyterLiteServerPlugin<void> = {
+const kernel: JupyterFrontEndPlugin<void> = {
   id: '@jupyterlite/p5-kernel-extension:kernel',
   autoStart: true,
   requires: [IKernelSpecs],
-  activate: (app: JupyterLiteServer, kernelspecs: IKernelSpecs) => {
+  activate: (app: JupyterFrontEnd, kernelspecs: IKernelSpecs) => {
     const url = PageConfig.getOption('p5Url') || P5_CDN_URL;
     const p5Url = URLExt.isLocal(url)
       ? URLExt.join(window.location.origin, url)
@@ -60,6 +62,6 @@ const kernel: JupyterLiteServerPlugin<void> = {
   }
 };
 
-const plugins: JupyterLiteServerPlugin<any>[] = [kernel];
+const plugins: JupyterFrontEndPlugin<void>[] = [kernel];
 
 export default plugins;

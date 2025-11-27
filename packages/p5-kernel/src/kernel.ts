@@ -1,6 +1,6 @@
-import { KernelMessage } from '@jupyterlab/services';
+import type { KernelMessage } from '@jupyterlab/services';
 
-import { BaseKernel, IKernel } from '@jupyterlite/kernel';
+import { BaseKernel, type IKernel } from '@jupyterlite/services';
 
 import { PromiseDelegate } from '@lumino/coreutils';
 
@@ -12,7 +12,7 @@ const MIME_TYPE = 'text/html-sandboxed';
 /**
  * A kernel for making p5 sketches in the browser
  */
-export class P5Kernel extends BaseKernel implements IKernel {
+export class P5Kernel extends BaseKernel {
   /**
    * Instantiate a new P5Kernel.
    *
