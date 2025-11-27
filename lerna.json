@@ -1,10 +1,5 @@
 {
   "npmClient": "yarn",
   "version": "0.1.1",
-  "useWorkspaces": true,
-  "command": {
-    "bootstrap": {
-      "npmClientArgs": ["--no-immutable"]
-    }
-  }
+  "useWorkspaces": true
 }
