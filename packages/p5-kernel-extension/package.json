@@ -1,6 +1,6 @@
 {
   "name": "@jupyterlite/p5-kernel-extension",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "JupyterLite - p5.js Kernel Extension",
   "homepage": "https://github.com/jupyterlite/p5-kernel",
   "bugs": {
@@ -50,7 +50,7 @@
   },
   "dependencies": {
     "@jupyterlab/application": "^4.5.0",
-    "@jupyterlite/p5-kernel": "^0.1.1",
+    "@jupyterlite/p5-kernel": "^0.2.0",
     "@jupyterlite/services": "^0.7.0"
   },
   "devDependencies": {

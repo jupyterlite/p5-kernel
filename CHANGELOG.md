@@ -2,6 +2,22 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.2.0
+
+([Full Changelog](https://github.com/jupyterlite/p5-kernel/compare/@jupyterlite/p5-kernel-extension@0.1.1...043229c91433412fbf16f96f2e56f89e263d2944))
+
+### Maintenance and upkeep improvements
+
+- Update to JupyterLite 0.7.0 [#26](https://github.com/jupyterlite/p5-kernel/pull/26) ([@jtpio](https://github.com/jtpio))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlite/p5-kernel/graphs/contributors?from=2023-02-10&to=2025-11-27&type=c))
+
+[@github-actions](https://github.com/search?q=repo%3Ajupyterlite%2Fp5-kernel+involves%3Agithub-actions+updated%3A2023-02-10..2025-11-27&type=Issues) | [@jtpio](https://github.com/search?q=repo%3Ajupyterlite%2Fp5-kernel+involves%3Ajtpio+updated%3A2023-02-10..2025-11-27&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.1.1
 
 ([Full Changelog](https://github.com/jupyterlite/p5-kernel/compare/@jupyterlite/p5-kernel-extension@0.1.0...3dd4b3c779cdb12f4dde130eab2f6c95f9530e97))
@@ -20,8 +36,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlite/p5-kernel/graphs/contributors?from=2023-01-21&to=2023-02-10&type=c))
 
 [@github-actions](https://github.com/search?q=repo%3Ajupyterlite%2Fp5-kernel+involves%3Agithub-actions+updated%3A2023-01-21..2023-02-10&type=Issues) | [@jtpio](https://github.com/search?q=repo%3Ajupyterlite%2Fp5-kernel+involves%3Ajtpio+updated%3A2023-01-21..2023-02-10&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.1.0
 
