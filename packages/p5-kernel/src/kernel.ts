@@ -285,8 +285,8 @@ export class P5Kernel extends BaseKernel {
     // add metadata
     const re = /^%show(?: (.+)\s+(.+))?\s*$/;
     const matches = code.match(re);
-    const width = matches?.[1] ?? undefined;
-    const height = matches?.[2] ?? undefined;
+    const width = matches?.[1] ?? '100%';
+    const height = matches?.[2] ?? '400px';
     return {
       execution_count: this.executionCount,
       data: {
