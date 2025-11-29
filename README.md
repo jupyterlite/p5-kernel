@@ -23,8 +23,6 @@ pip install jupyterlite-p5-kernel
 jupyter lite build
 ```
 
-See the JupyterLite documentation for more information on how to build sites and include additional extensions: https://jupyterlite.readthedocs.io/en/latest/howto/index.html
-
 ## Uninstall
 
 ```bash
