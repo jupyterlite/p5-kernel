@@ -153,7 +153,6 @@ export class P5Kernel extends BaseKernel {
       const magics = await this._magics();
       const { data, metadata } = magics;
       this._parentHeaders.forEach(h => {
-        this.clearOutput({ wait: false });
         this.updateDisplayData(
           {
             data,
@@ -287,22 +286,25 @@ export class P5Kernel extends BaseKernel {
     const matches = code.match(re);
     const width = matches?.[1] ?? '100%';
     const height = matches?.[2] ?? '400px';
+    // Properly escape the srcdoc content
+    const srcdocContent = [
+      '<body style="overflow: hidden; margin: 0; padding: 0;">',
+      `<script>${script}</script>`,
+      '</body>'
+    ].join('');
+
+    // Escape the srcdoc attribute value
+    const escapedSrcdoc = srcdocContent
+      .replace(/&/g, '&amp;')
+      .replace(/'/g, '&#39;')
+      .replace(/"/g, '&quot;');
+
     return {
       execution_count: this.executionCount,
       data: {
-        'text/html': [
-          '<body style="overflow: hidden;">',
-          `<script>${script}</script>`,
-          '</body>'
-        ].join('\n')
+        'text/html': `<iframe width="${width}" height="${height}" frameborder="0" srcdoc="${escapedSrcdoc}"></iframe>`
       },
-      metadata: {
-        'text/html': {
-          isolated: true,
-          width,
-          height
-        }
-      }
+      metadata: {}
     };
   }
 
