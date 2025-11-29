@@ -5,11 +5,6 @@ import { BaseKernel, type IKernel } from '@jupyterlite/services';
 import { PromiseDelegate } from '@lumino/coreutils';
 
 /**
- * The mimetype for mime bundle results
- */
-const MIME_TYPE = 'text/html-sandboxed';
-
-/**
  * A kernel for making p5 sketches in the browser
  */
 export class P5Kernel extends BaseKernel {
@@ -295,14 +290,15 @@ export class P5Kernel extends BaseKernel {
     return {
       execution_count: this.executionCount,
       data: {
-        [MIME_TYPE]: [
+        'text/html': [
           '<body style="overflow: hidden;">',
           `<script>${script}</script>`,
           '</body>'
         ].join('\n')
       },
       metadata: {
-        [MIME_TYPE]: {
+        'text/html': {
+          isolated: true,
           width,
           height
         }
