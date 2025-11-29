@@ -4,3 +4,4 @@ node_modules
 **/package.json
 jupyterlite_p5_kernel
 docs
+.venv

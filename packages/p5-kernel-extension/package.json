@@ -54,7 +54,7 @@
     "@jupyterlite/services": "^0.7.0"
   },
   "devDependencies": {
-    "@jupyterlab/builder": "^4.5.0",
+    "@jupyterlab/builder": "^4.5.5",
     "@types/json-schema": "^7.0.11",
     "@types/react": "^18.0.26",
     "@types/react-addons-linked-state-mixin": "^0.14.22",

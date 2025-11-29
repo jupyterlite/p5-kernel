@@ -1,31 +1,32 @@
+// Copyright (c) Jupyter Development Team.
+// Distributed under the terms of the Modified BSD License.
+
 import type { KernelMessage } from '@jupyterlab/services';
 
-import { BaseKernel, type IKernel } from '@jupyterlite/services';
+import { JavaScriptKernel, IImportInfo } from '@jupyterlite/javascript-kernel';
 
-import { PromiseDelegate } from '@lumino/coreutils';
+import { ICodeRegistry, P5Executor } from './executor';
 
 /**
  * A kernel for making p5 sketches in the browser
  */
-export class P5Kernel extends BaseKernel {
+export class P5Kernel extends JavaScriptKernel {
   /**
    * Instantiate a new P5Kernel.
    *
    * @param options The instantiation options for a new P5Kernel.
    */
   constructor(options: P5Kernel.IOptions) {
-    super(options);
+    super({
+      ...options,
+      runtime: 'iframe',
+      executorFactory: globalScope =>
+        new P5Executor(globalScope as unknown as Window)
+    });
     const { p5Url } = options;
 
     // use the kernel id as a display id
     this._displayId = this.id;
-
-    // create the main IFrame
-    this._iframe = document.createElement('iframe');
-    this._iframe.style.visibility = 'hidden';
-    this._iframe.style.position = 'absolute';
-    // position outside of the page
-    this._iframe.style.top = '-100000px';
 
     // p5 bootstrap code
     this._bootstrap = `
@@ -35,44 +36,14 @@ export class P5Kernel extends BaseKernel {
       return Promise.resolve();
     })
   `;
-
-    this._iframe.onload = async () => {
-      await this._initIFrame();
-      this._eval(this._bootstrap);
-      this._ready.resolve();
-      window.addEventListener('message', (e: MessageEvent) => {
-        const msg = e.data;
-        if (msg.event === 'stream') {
-          const content = msg as KernelMessage.IStreamMsg['content'];
-          this.stream(content);
-        }
-      });
-    };
-    document.body.appendChild(this._iframe);
-  }
-
-  /**
-   * A promise that is fulfilled when the kernel is ready.
-   */
-  get ready(): Promise<void> {
-    return this._ready.promise;
-  }
-
-  /**
-   * Dispose the kernel.
-   */
-  dispose(): void {
-    if (this.isDisposed) {
-      return;
-    }
-    this._iframe.remove();
-    super.dispose();
   }
 
   /**
    * Handle a kernel_info_request message
    */
-  async kernelInfoRequest(): Promise<KernelMessage.IInfoReplyMsg['content']> {
+  override async kernelInfoRequest(): Promise<
+    KernelMessage.IInfoReplyMsg['content']
+  > {
     const content: KernelMessage.IInfoReply = {
       implementation: 'p5.js',
       implementation_version: '0.1.0',
@@ -105,13 +76,14 @@ export class P5Kernel extends BaseKernel {
    *
    * @param msg The parent message.
    */
-  async executeRequest(
+  override async executeRequest(
     content: KernelMessage.IExecuteRequestMsg['content']
   ): Promise<KernelMessage.IExecuteReplyMsg['content']> {
     const { code } = content;
     const transient = {
       display_id: this._displayId
     };
+
     // handle magics first
     if (code.startsWith('%show')) {
       const magics = await this._magics(code);
@@ -121,7 +93,9 @@ export class P5Kernel extends BaseKernel {
       };
       if (res) {
         this.displayData(res);
-        this._parentHeaders.push(this['_parentHeader']);
+        if (this.parentHeader) {
+          this._parentHeaders.push(this.parentHeader);
+        }
 
         return {
           status: 'ok',
@@ -131,131 +105,57 @@ export class P5Kernel extends BaseKernel {
       }
     }
 
-    try {
-      const result = this._eval(code);
-
-      this.publishExecuteResult({
-        execution_count: this.executionCount,
-        data: {
-          'text/plain': result
-        },
-        metadata: {}
-      });
-
-      // only store the input if the execution is successful
-      if (!code.trim().startsWith('%')) {
-        this._inputs.push(code);
-      }
-
-      // update existing displays since the executed code might affect the rendering
-      // of existing sketches
-
-      const magics = await this._magics();
-      const { data, metadata } = magics;
-      this._parentHeaders.forEach(h => {
-        this.updateDisplayData(
-          {
-            data,
-            metadata,
-            transient
-          },
-          h
-        );
-      });
-
-      return {
-        status: 'ok',
-        execution_count: this.executionCount,
-        user_expressions: {}
-      };
-    } catch (e) {
-      const { name, stack, message } = e as any as Error;
-
-      this.publishExecuteError({
-        ename: name,
-        evalue: message,
-        traceback: [`${stack}`]
-      });
-
-      return {
-        status: 'error',
-        execution_count: this.executionCount,
-        ename: name,
-        evalue: message,
-        traceback: [`${stack}`]
-      };
+    const reply = await super.executeRequest(content);
+    if (reply.status !== 'ok') {
+      return reply;
     }
+
+    const executor = this._p5Executor;
+    if (!code.trim().startsWith('%') && executor && this._codeRegistry) {
+      // Register code in the registry for later sketch generation.
+      this._p5Executor?.registerCode(code, this._codeRegistry);
+
+      // Extract and track imports from the code.
+      const imports = executor.extractImports(code);
+      for (const imp of imports) {
+        if (!this._imports.some(existing => existing.source === imp.source)) {
+          this._imports.push(imp);
+        }
+      }
+    }
+
+    // Update existing displays since the executed code might affect rendering.
+    const magics = await this._magics();
+    this._parentHeaders.forEach(h => {
+      this.updateDisplayData(
+        {
+          data: magics.data,
+          metadata: magics.metadata,
+          transient
+        },
+        h
+      );
+    });
+
+    return reply;
   }
 
   /**
-   * Handle an complete_request message
-   *
-   * @param msg The parent message.
+   * Initialize runtime for p5 execution.
    */
-  async completeRequest(
-    content: KernelMessage.ICompleteRequestMsg['content']
-  ): Promise<KernelMessage.ICompleteReplyMsg['content']> {
-    // naive completion on window names only
-    // TODO: improve and move logic to the iframe
-    const vars = this._evalFunc(
-      this._iframe.contentWindow,
-      'Object.keys(window)'
-    ) as string[];
-    const { code, cursor_pos } = content;
-    const words = code.slice(0, cursor_pos).match(/(\w+)$/) ?? [];
-    const word = words[0] ?? '';
-    const matches = vars.filter(v => v.startsWith(word));
+  protected override async onRuntimeReady(
+    context: JavaScriptKernel.IRuntimeReadyContext
+  ): Promise<void> {
+    if (context.runtime !== 'iframe') {
+      throw new Error('P5Kernel requires iframe runtime');
+    }
 
-    return {
-      matches,
-      cursor_start: cursor_pos - word.length,
-      cursor_end: cursor_pos,
-      metadata: {},
-      status: 'ok'
-    };
-  }
+    // Runtime executor is configured via kernel constructor options.
+    this._p5Executor = context.executor as P5Executor;
+    this._codeRegistry = this._p5Executor.createCodeRegistry();
 
-  async inspectRequest(
-    content: KernelMessage.IInspectRequestMsg['content']
-  ): Promise<KernelMessage.IInspectReplyMsg['content']> {
-    throw new Error('not implemented');
-  }
-
-  async isCompleteRequest(
-    content: KernelMessage.IIsCompleteRequestMsg['content']
-  ): Promise<KernelMessage.IIsCompleteReplyMsg['content']> {
-    throw new Error('not implemented');
-  }
-
-  async commInfoRequest(
-    content: KernelMessage.ICommInfoRequestMsg['content']
-  ): Promise<KernelMessage.ICommInfoReplyMsg['content']> {
-    throw new Error('not implemented');
-  }
-
-  inputReply(content: KernelMessage.IInputReplyMsg['content']): void {
-    throw new Error('not implemented');
-  }
-
-  async commOpen(msg: KernelMessage.ICommOpenMsg): Promise<void> {
-    throw new Error('not implemented');
-  }
-
-  async commMsg(msg: KernelMessage.ICommMsgMsg): Promise<void> {
-    throw new Error('not implemented');
-  }
-
-  async commClose(msg: KernelMessage.ICommCloseMsg): Promise<void> {
-    throw new Error('not implemented');
-  }
-
-  /**
-   * Execute code in the kernel IFrame.
-   *
-   * @param code The code to execute.
-   */
-  protected _eval(code: string): string {
-    return this._evalFunc(this._iframe.contentWindow, code);
+    // Run p5 bootstrap.
+    await context.execute(`return ${this._bootstrap}`);
   }
 
   /**
@@ -266,19 +166,28 @@ export class P5Kernel extends BaseKernel {
   private async _magics(
     code = ''
   ): Promise<KernelMessage.IExecuteResultMsg['content']> {
-    const input = this._inputs
-      .map(c => {
-        const exec = ['try {', `window.eval(\`${c}\`);`, '} catch(e) {}'].join(
-          '\n'
-        );
-        return exec;
-      })
-      .join('\n');
+    const executor = this._p5Executor;
+
+    // Generate import loading code
+    const importCode = executor
+      ? executor.generateImportCode(this._imports)
+      : '';
+
+    // Generate deduplicated code from the registry
+    // This uses AST-based generation, so later definitions override earlier ones
+    const combinedCode =
+      this._p5Executor && this._codeRegistry
+        ? this._p5Executor.generateCodeFromRegistry(this._codeRegistry)
+        : '';
+
+    // Create an async wrapper that first loads imports, then runs user code
+    // The user code is embedded as a function body, not eval'd from a string
     const script = `
-        ${this._bootstrap}.then(() => {
-          ${input}
+        ${this._bootstrap}.then(async () => {
+          ${importCode}
+          ${combinedCode}
           window.__globalP5._start();
-        })
+        }).catch(e => console.error(e));
       `;
 
     // add metadata
@@ -308,60 +217,13 @@ export class P5Kernel extends BaseKernel {
     };
   }
 
-  /**
-   * Create a new IFrame
-   *
-   * @param iframe The IFrame to initialize.
-   */
-  protected async _initIFrame(): Promise<void> {
-    if (!this._iframe.contentWindow) {
-      return;
-    }
-    this._evalFunc(
-      this._iframe.contentWindow,
-      `
-          console._log = console.log;
-          console._error = console.error;
-          window._bubbleUp = function(msg) {
-            window.parent.postMessage(msg);
-          }
-          console.log = function() {
-            const args = Array.prototype.slice.call(arguments);
-            window._bubbleUp({
-              "event": "stream",
-              "name": "stdout",
-              "text": args.join(' ') + '\\n'
-            });
-          };
-          console.info = console.log;
-          console.error = function() {
-            const args = Array.prototype.slice.call(arguments);
-            window._bubbleUp({
-              "event": "stream",
-              "name": "stderr",
-              "text": args.join(' ') + '\\n'
-            });
-          };
-          console.warn = console.error;
-          window.onerror = function(message, source, lineno, colno, error) {
-            console.error(message);
-          }
-        `
-    );
-  }
-
   private _displayId = '';
   private _bootstrap = '';
-  private _iframe: HTMLIFrameElement;
-  private _evalFunc = new Function(
-    'window',
-    'code',
-    'return window.eval(code);'
-  );
-  private _inputs: string[] = [];
-  private _ready = new PromiseDelegate<void>();
+  private _codeRegistry?: ICodeRegistry;
+  private _imports: IImportInfo[] = [];
   private _parentHeaders: KernelMessage.IHeader<KernelMessage.MessageType>[] =
     [];
+  private _p5Executor?: P5Executor;
 }
 
 /**
@@ -371,10 +233,11 @@ export namespace P5Kernel {
   /**
    * The instantiation options for a P5Kernel
    */
-  export interface IOptions extends IKernel.IOptions {
+  export interface IOptions extends JavaScriptKernel.IOptions {
     /**
      * The URL to fetch p5.js
      */
     p5Url: string;
+    runtime?: 'iframe';
   }
 }
