@@ -5,11 +5,6 @@ import { BaseKernel, type IKernel } from '@jupyterlite/services';
 import { PromiseDelegate } from '@lumino/coreutils';
 
 /**
- * The mimetype for mime bundle results
- */
-const MIME_TYPE = 'text/html-sandboxed';
-
-/**
  * A kernel for making p5 sketches in the browser
  */
 export class P5Kernel extends BaseKernel {
@@ -158,7 +153,6 @@ export class P5Kernel extends BaseKernel {
       const magics = await this._magics();
       const { data, metadata } = magics;
       this._parentHeaders.forEach(h => {
-        this.clearOutput({ wait: false });
         this.updateDisplayData(
           {
             data,
@@ -290,23 +284,27 @@ export class P5Kernel extends BaseKernel {
     // add metadata
     const re = /^%show(?: (.+)\s+(.+))?\s*$/;
     const matches = code.match(re);
-    const width = matches?.[1] ?? undefined;
-    const height = matches?.[2] ?? undefined;
+    const width = matches?.[1] ?? '100%';
+    const height = matches?.[2] ?? '400px';
+    // Properly escape the srcdoc content
+    const srcdocContent = [
+      '<body style="overflow: hidden; margin: 0; padding: 0;">',
+      `<script>${script}</script>`,
+      '</body>'
+    ].join('');
+
+    // Escape the srcdoc attribute value
+    const escapedSrcdoc = srcdocContent
+      .replace(/&/g, '&amp;')
+      .replace(/'/g, '&#39;')
+      .replace(/"/g, '&quot;');
+
     return {
       execution_count: this.executionCount,
       data: {
-        [MIME_TYPE]: [
-          '<body style="overflow: hidden;">',
-          `<script>${script}</script>`,
-          '</body>'
-        ].join('\n')
+        'text/html': `<iframe width="${width}" height="${height}" frameborder="0" srcdoc="${escapedSrcdoc}"></iframe>`
       },
-      metadata: {
-        [MIME_TYPE]: {
-          width,
-          height
-        }
-      }
+      metadata: {}
     };
   }
 

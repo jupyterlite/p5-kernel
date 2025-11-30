@@ -1,7 +1,7 @@
 # jupyterlite-p5-kernel
 
 [![Github Actions Status](https://github.com/jupyterlite/p5-kernel/workflows/Build/badge.svg)](https://github.com/jupyterlite/p5-kernel/actions/workflows/build.yml)
-[![JupyterLite](https://jupyterlite.rtfd.io/en/latest/_static/badge-launch.svg)](https://jupyterlite-p5-kernel.readthedocs.io/en/latest/lite/lab)
+[![JupyterLite](https://jupyterlite.rtfd.io/en/latest/_static/badge-launch.svg)](https://jupyterlite.github.io/p5-kernel)
 
 A p5.js kernel for JupyterLite.
 
@@ -22,8 +22,6 @@ pip install jupyterlite-p5-kernel
 # Build a new JupyterLite site
 jupyter lite build
 ```
-
-See the JupyterLite documentation for more information on how to build sites and include additional extensions: https://jupyterlite.readthedocs.io/en/latest/howto/index.html
 
 ## Uninstall
 
