@@ -2,6 +2,22 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.3.0alpha0
+
+([Full Changelog](https://github.com/jupyterlite/p5-kernel/compare/@jupyterlite/p5-kernel-extension@0.2.0...035b4019203c0387a5d52b4fdfaeac7b67731390))
+
+### Enhancements made
+
+- Use the `text/html` mimebundle [#27](https://github.com/jupyterlite/p5-kernel/pull/27) ([@jtpio](https://github.com/jtpio))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlite/p5-kernel/graphs/contributors?from=2025-11-27&to=2025-12-01&type=c))
+
+[@jtpio](https://github.com/search?q=repo%3Ajupyterlite%2Fp5-kernel+involves%3Ajtpio+updated%3A2025-11-27..2025-12-01&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.2.0
 
 ([Full Changelog](https://github.com/jupyterlite/p5-kernel/compare/@jupyterlite/p5-kernel-extension@0.1.1...043229c91433412fbf16f96f2e56f89e263d2944))
@@ -15,8 +31,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlite/p5-kernel/graphs/contributors?from=2023-02-10&to=2025-11-27&type=c))
 
 [@github-actions](https://github.com/search?q=repo%3Ajupyterlite%2Fp5-kernel+involves%3Agithub-actions+updated%3A2023-02-10..2025-11-27&type=Issues) | [@jtpio](https://github.com/search?q=repo%3Ajupyterlite%2Fp5-kernel+involves%3Ajtpio+updated%3A2023-02-10..2025-11-27&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.1.1
 

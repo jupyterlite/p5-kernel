@@ -1,6 +1,6 @@
 {
   "name": "@jupyterlite/p5-kernel",
-  "version": "0.2.0",
+  "version": "0.3.0-alpha.0",
   "description": "JupyterLite - p5.js Kernel",
   "homepage": "https://github.com/jupyterlite/p5-kernel",
   "bugs": {
