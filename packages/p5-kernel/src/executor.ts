@@ -8,9 +8,6 @@ import {
   ExecutorConfig
 } from '@jupyterlite/javascript-kernel';
 
-// Re-export ICodeRegistry from the base package for consumers
-export { ICodeRegistry } from '@jupyterlite/javascript-kernel';
-
 /**
  * p5.js-specific executor that extends the base JavaScript executor.
  * Adds p5-specific MIME bundle handling and documentation.

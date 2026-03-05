@@ -3,9 +3,13 @@
 
 import type { KernelMessage } from '@jupyterlab/services';
 
-import { JavaScriptKernel, IImportInfo } from '@jupyterlite/javascript-kernel';
+import {
+  JavaScriptKernel,
+  IImportInfo,
+  ICodeRegistry
+} from '@jupyterlite/javascript-kernel';
 
-import { ICodeRegistry, P5Executor } from './executor';
+import { P5Executor } from './executor';
 
 /**
  * A kernel for making p5 sketches in the browser.
