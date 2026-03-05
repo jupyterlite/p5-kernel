@@ -16,17 +16,23 @@ export { ICodeRegistry } from '@jupyterlite/javascript-kernel';
  * Adds p5-specific MIME bundle handling and documentation.
  */
 export class P5Executor extends JavaScriptExecutor {
+  /**
+   * Instantiate a new P5Executor.
+   *
+   * @param globalScope - The global window scope for the executor.
+   * @param config - Optional executor configuration.
+   */
   constructor(globalScope: Window, config?: ExecutorConfig) {
     super(globalScope, config);
   }
 
   /**
-   * Override getMimeBundle to add p5.js-specific handling
+   * Override getMimeBundle to add p5.js-specific handling.
    */
   override getMimeBundle(value: any): IMimeBundle {
     // Handle p5.js Graphics object
-    if (this.isP5Graphics(value)) {
-      return this.getP5GraphicsMimeBundle(value);
+    if (this._isP5Graphics(value)) {
+      return this._getP5GraphicsMimeBundle(value);
     }
 
     // Fall back to base implementation
@@ -34,9 +40,25 @@ export class P5Executor extends JavaScriptExecutor {
   }
 
   /**
-   * Check if value is a p5.js Graphics object
+   * Override to add p5.js-specific documentation.
    */
-  private isP5Graphics(value: any): boolean {
+  protected override getBuiltinDocumentation(
+    expression: string
+  ): string | null {
+    // Check p5-specific docs first
+    const p5Doc = this._getP5Documentation(expression);
+    if (p5Doc) {
+      return p5Doc;
+    }
+
+    // Fall back to base JavaScript docs
+    return super.getBuiltinDocumentation(expression);
+  }
+
+  /**
+   * Check if value is a p5.js Graphics object.
+   */
+  private _isP5Graphics(value: any): boolean {
     return (
       value &&
       typeof value === 'object' &&
@@ -46,9 +68,9 @@ export class P5Executor extends JavaScriptExecutor {
   }
 
   /**
-   * Get MIME bundle for p5.js Graphics objects
+   * Get MIME bundle for p5.js Graphics objects.
    */
-  private getP5GraphicsMimeBundle(graphics: any): IMimeBundle {
+  private _getP5GraphicsMimeBundle(graphics: any): IMimeBundle {
     try {
       const canvas = graphics.elt as HTMLCanvasElement;
       const dataUrl = canvas.toDataURL('image/png');
@@ -63,25 +85,9 @@ export class P5Executor extends JavaScriptExecutor {
   }
 
   /**
-   * Override to add p5.js-specific documentation
+   * Get p5.js-specific documentation.
    */
-  protected override getBuiltinDocumentation(
-    expression: string
-  ): string | null {
-    // Check p5-specific docs first
-    const p5Doc = this.getP5Documentation(expression);
-    if (p5Doc) {
-      return p5Doc;
-    }
-
-    // Fall back to base JavaScript docs
-    return super.getBuiltinDocumentation(expression);
-  }
-
-  /**
-   * Get p5.js-specific documentation
-   */
-  private getP5Documentation(expression: string): string | null {
+  private _getP5Documentation(expression: string): string | null {
     const p5Docs: Record<string, string> = {
       // Drawing
       createCanvas:

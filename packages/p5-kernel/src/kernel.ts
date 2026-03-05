@@ -8,13 +8,13 @@ import { JavaScriptKernel, IImportInfo } from '@jupyterlite/javascript-kernel';
 import { ICodeRegistry, P5Executor } from './executor';
 
 /**
- * A kernel for making p5 sketches in the browser
+ * A kernel for making p5 sketches in the browser.
  */
 export class P5Kernel extends JavaScriptKernel {
   /**
    * Instantiate a new P5Kernel.
    *
-   * @param options The instantiation options for a new P5Kernel.
+   * @param options - The instantiation options for a new P5Kernel.
    */
   constructor(options: P5Kernel.IOptions) {
     super({
@@ -39,7 +39,7 @@ export class P5Kernel extends JavaScriptKernel {
   }
 
   /**
-   * Handle a kernel_info_request message
+   * Handle a kernel_info_request message.
    */
   override async kernelInfoRequest(): Promise<
     KernelMessage.IInfoReplyMsg['content']
@@ -72,9 +72,9 @@ export class P5Kernel extends JavaScriptKernel {
   }
 
   /**
-   * Handle an `execute_request` message
+   * Handle an `execute_request` message.
    *
-   * @param msg The parent message.
+   * @param content - The execute request content.
    */
   override async executeRequest(
     content: KernelMessage.IExecuteRequestMsg['content']
@@ -142,6 +142,8 @@ export class P5Kernel extends JavaScriptKernel {
 
   /**
    * Initialize runtime for p5 execution.
+   *
+   * @param context - The runtime ready context.
    */
   protected override async onRuntimeReady(
     context: JavaScriptKernel.IRuntimeReadyContext
@@ -161,7 +163,7 @@ export class P5Kernel extends JavaScriptKernel {
   /**
    * Handle magics coming from execute requests.
    *
-   * @param code The code block to handle.
+   * @param code - The code block to handle.
    */
   private async _magics(
     code = ''
@@ -231,13 +233,17 @@ export class P5Kernel extends JavaScriptKernel {
  */
 export namespace P5Kernel {
   /**
-   * The instantiation options for a P5Kernel
+   * The instantiation options for a P5Kernel.
    */
   export interface IOptions extends JavaScriptKernel.IOptions {
     /**
-     * The URL to fetch p5.js
+     * The URL to fetch p5.js.
      */
     p5Url: string;
+
+    /**
+     * The runtime mode for the kernel.
+     */
     runtime?: 'iframe';
   }
 }
