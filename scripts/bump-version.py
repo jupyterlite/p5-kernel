@@ -16,7 +16,7 @@ version_file = root / "packages" / "p5-kernel-extension" / "package.json"
 package_file = root / "package.json"
 
 version_json = json.loads(version_file.read_text())
-version = version_json["version"]
+version = version_json["version"].replace("-alpha.", "-a").replace("-beta.", "-b").replace("-rc.", "-rc")
 
 package_json = json.loads(package_file.read_text())
 package_json["version"] = version
