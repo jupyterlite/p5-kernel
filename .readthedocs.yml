@@ -7,6 +7,6 @@ build:
   commands:
     - mamba env update --name base --file docs/environment.yml
     - python -m pip install .
-    - jupyter lite build --output-dir dist
+    - jupyter lite build --contents examples --output-dir dist
     - mkdir -p $READTHEDOCS_OUTPUT/html
     - cp -r dist/* $READTHEDOCS_OUTPUT/html/

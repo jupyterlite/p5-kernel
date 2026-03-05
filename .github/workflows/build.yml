@@ -71,7 +71,7 @@ jobs:
           python -m pip install --pre jupyterlite-core jupyterlite_p5_kernel*.whl
       - name: Build the JupyterLite site
         run: |
-          jupyter lite build --output-dir dist
+          jupyter lite build --contents examples --output-dir dist
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
