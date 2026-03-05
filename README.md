@@ -3,7 +3,7 @@
 [![Github Actions Status](https://github.com/jupyterlite/p5-kernel/workflows/Build/badge.svg)](https://github.com/jupyterlite/p5-kernel/actions/workflows/build.yml)
 [![JupyterLite](https://jupyterlite.rtfd.io/en/latest/_static/badge-launch.svg)](https://jupyterlite.github.io/p5-kernel)
 
-A p5.js kernel for JupyterLite.
+A p5.js kernel for JupyterLite, built on top of the [JavaScript kernel](https://github.com/jupyterlite/javascript-kernel).
 
 ![image](https://user-images.githubusercontent.com/591645/135318337-8e63861c-c598-48db-8c90-2c86d3a8936b.png)
 
