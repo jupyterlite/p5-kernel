@@ -157,7 +157,7 @@ export class P5Kernel extends JavaScriptKernel {
     this._codeRegistry = this._p5Executor.createCodeRegistry();
 
     // Run p5 bootstrap.
-    await context.execute(`return ${this._bootstrap}`);
+    await context.execute(this._bootstrap);
   }
 
   /**
