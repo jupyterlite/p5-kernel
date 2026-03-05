@@ -68,7 +68,7 @@ jobs:
           name: extension-artifacts
       - name: Install the dependencies
         run: |
-          python -m pip install --pre jupyterlite-core jupyterlite_p5_kernel*.whl
+          python -m pip install --pre jupyterlite-core jupyter-server jupyterlite_p5_kernel*.whl
       - name: Build the JupyterLite site
         run: |
           jupyter lite build --contents examples --output-dir dist
