@@ -7,6 +7,8 @@ node_modules/
 *.egg-info/
 .ipynb_checkpoints
 *.tsbuildinfo
+# Auto-generated from @types/p5
+packages/p5-kernel/src/p5-docs.ts
 jupyterlite_p5_kernel/labextension
 # Version file is handled by hatchling
 jupyterlite_p5_kernel/_version.py

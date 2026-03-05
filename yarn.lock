@@ -3034,6 +3034,7 @@ __metadata:
     "@jupyterlite/javascript-kernel": ^0.4.0-alpha.1
     "@jupyterlite/services": ^0.7.0
     "@types/jest": ^26.0.10
+    "@types/p5": ^1.7.7
     jest: ^26.4.2
     rimraf: ~5.0.1
     ts-jest: ^26.3.0
@@ -4683,6 +4684,13 @@ __metadata:
   version: 2.4.4
   resolution: "@types/normalize-package-data@npm:2.4.4"
   checksum: 65dff72b543997b7be8b0265eca7ace0e34b75c3e5fee31de11179d08fa7124a7a5587265d53d0409532ecb7f7fba662c2012807963e1f9b059653ec2c83ee05
+  languageName: node
+  linkType: hard
+
+"@types/p5@npm:^1.7.7":
+  version: 1.7.7
+  resolution: "@types/p5@npm:1.7.7"
+  checksum: dc27864516effa756eafbac77db010493dfc0c03f1c065df51cf48d8db3725f033f19ffa7c94392d532d5675cf4f1fbcd9bdf8b24aaac5b6bbf8f7b6d7e3e849
   languageName: node
   linkType: hard
 
@@ -14347,14 +14355,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"safe-buffer@npm:^5.1.0":
-  version: 5.2.1
-  resolution: "safe-buffer@npm:5.2.1"
-  checksum: b99c4b41fdd67a6aaf280fcd05e9ffb0813654894223afb78a31f14a19ad220bba8aba1cb14eddce1fcfb037155fe6de4e861784eb434f7d11ed58d1e70dd491
-  languageName: node
-  linkType: hard
-
-"safe-buffer@npm:~5.1.0, safe-buffer@npm:~5.1.1":
+"safe-buffer@npm:^5.1.0, safe-buffer@npm:~5.1.0, safe-buffer@npm:~5.1.1":
   version: 5.1.2
   resolution: "safe-buffer@npm:5.1.2"
   checksum: f2f1f7943ca44a594893a852894055cf619c1fbcb611237fc39e461ae751187e7baf4dc391a72125e0ac4fb2d8c5c0b3c71529622e6a58f46b960211e704903c

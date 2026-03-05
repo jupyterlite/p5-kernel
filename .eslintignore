@@ -31,3 +31,4 @@ index.template.js
 config-utils.js
 
 docs
+packages/p5-kernel/src/p5-docs.ts
