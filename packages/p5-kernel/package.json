@@ -48,7 +48,7 @@
   },
   "dependencies": {
     "@jupyterlab/nbformat": "^4.5.0",
-    "@jupyterlite/javascript-kernel": "^0.4.0-alpha.1",
+    "@jupyterlite/javascript-kernel": "^0.4.0-alpha.2",
     "@jupyterlite/services": "^0.7.0"
   },
   "devDependencies": {
