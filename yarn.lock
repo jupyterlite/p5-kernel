@@ -2957,9 +2957,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jupyterlite/javascript-kernel@npm:^0.4.0-alpha.2":
-  version: 0.4.0-alpha.2
-  resolution: "@jupyterlite/javascript-kernel@npm:0.4.0-alpha.2"
+"@jupyterlite/javascript-kernel@npm:^0.4.0-alpha.3":
+  version: 0.4.0-alpha.3
+  resolution: "@jupyterlite/javascript-kernel@npm:0.4.0-alpha.3"
   dependencies:
     "@jupyterlab/coreutils": ^6.5.5
     "@jupyterlab/nbformat": ^4.5.0
@@ -2968,7 +2968,7 @@ __metadata:
     astring: ^1.9.0
     comlink: ^4.3.1
     meriyah: ^4.3.9
-  checksum: f409dc43ff00478f1217523f7d0bd118415fe41a0b7baa8af0e6dab1d9e08a22d62fcf91b36183c4b1f995fedc4e9aa31b6c4854553464b66621a693ed132666
+  checksum: baadc4a7435b9b9132a1a206dc2ffc938379d1a9fb99818dc553a555ecef685bae85dc9cd14d8f2ea9530934ce2a80bb8dc65cead797a076158f6933f60b6500
   languageName: node
   linkType: hard
 
@@ -3031,7 +3031,7 @@ __metadata:
     "@babel/preset-env": ^7.12.1
     "@jupyterlab/nbformat": ^4.5.0
     "@jupyterlab/testutils": ~4.5.0
-    "@jupyterlite/javascript-kernel": ^0.4.0-alpha.2
+    "@jupyterlite/javascript-kernel": ^0.4.0-alpha.3
     "@jupyterlite/services": ^0.7.0
     "@types/jest": ^26.0.10
     "@types/p5": ^1.7.7
